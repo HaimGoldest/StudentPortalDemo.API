@@ -6,11 +6,11 @@ namespace StudentPortalDemo.API.Profiles
     {
         public AutoMapperProfiles()
         {
-            CreateMap<DataModels.Student, DataModels.Student>().ReverseMap();
+            CreateMap<DataModels.Student, DomainModels.Student>().ReverseMap();
 
-            CreateMap<DataModels.Gender, DataModels.Gender>().ReverseMap();
+            CreateMap<DataModels.Gender, DomainModels.Gender>().ReverseMap();
 
-            CreateMap<DataModels.Address, DataModels.Address>().ReverseMap();
+            CreateMap<DataModels.Address, DomainModels.Address>().ReverseMap();
         }
     }
 }
