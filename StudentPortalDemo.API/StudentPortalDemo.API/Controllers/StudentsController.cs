@@ -30,10 +30,8 @@ namespace StudentPortalDemo.API.Controllers
         [Route("[controller]/{studentId:guid}")]
         public async Task<IActionResult> GetStudentAsync([FromRoute] Guid studentId)
         {
-            // Fetch Student Details
             var student = await _studentsRepo.GetStudentAsync(studentId);
 
-            // Return Student
             if (student == null)
             {
                 return NotFound();
@@ -49,13 +47,25 @@ namespace StudentPortalDemo.API.Controllers
         {
             if (await _studentsRepo.Exists(studentId))
             {
-                // Update details
                 var updatedStudent = await _studentsRepo.UpdateStudent(studentId, _mapper.Map<DataModels.Student>(request));
 
                 if (updatedStudent != null)
                 {
                     return Ok(_mapper.Map <DomainModels.Student>(updatedStudent));
                 }
+            }
+
+            return NotFound();
+        }
+
+        [HttpDelete]
+        [Route("[controller]/{studentId:guid}")]
+        public async Task<IActionResult> DeleteStudentAsync([FromRoute] Guid studentId)
+        {
+            if (await _studentsRepo.Exists(studentId))
+            {
+                var student = await _studentsRepo.DeleteStudent(studentId);
+                return Ok(_mapper.Map<Student>(student));
             }
 
             return NotFound();
